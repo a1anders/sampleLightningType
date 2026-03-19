@@ -1,3 +1,105 @@
+PREWORK:
+
+Create the Prompt Template
+
+Type: Flex
+
+Input: File (ContentDocument)
+
+Name: Agentforce Employee Agent PDF
+
+Model: (any model that supports multimodal capabilities)
+
+Prompt: Parse the file and return Order Number, Completion Date, Claim Date, Status, and Total Amount.
+
+Add the Apex classes in this order.
+
+PdfUploadInputDTO
+PdfSummarizerService
+PdfSummarizerAction
+
+Add the LWC.
+
+PdfUploadInputDTO
+PdfSummarizerService
+PdfSummarizerAction
+
+Add the Lightning Type.
+
+Add a folder called lightningType.
+force-app/
+└── main/
+     └── default/
+          ├── lightningTypes/
+
+Create the Lightning Type Bundle
+
+Creating a subfolder for the type and putting the required JSON files inside it. 
+
+In source format, the bundle is just the folder plus its config files. Schema.json is required; editor.json and renderer.json are optional and live in a channel subfolder such as lightningDesktopGenAi.
+
+This sample only uses editor.json, because it only requires a Lightning Type for the input. renderer.json is for the output.
+
+force-app/
+└── main/
+    └── default/
+        └── lightningTypes/
+            └── pdfUploadInputType/
+                ├── schema.json
+                └── lightningDesktopGenAi/
+                    └── editor.json
+
+Create the files first. Then paste the code in.
+
+Create the Employee Agent
+
+Name: Agentforce Employee Agent
+
+Description: Your sole purpose is to parse PDF files and return content.
+
+Role: You are an Agentforce Employee Agent. You accept uploads from users and parse them.
+
+
+Create the Topic
+
+Name: PDF Upload and Analysis
+
+Classification Description: PDF file upload and analysis requests
+
+Scope: PDF files, document upload, file analysis, document parsing, file summarization
+
+Instruction: 
+When a user wants to analyze a PDF document:
+1. Present the file upload interface to collect the PDF file
+2. Gather the record ID and object API name for context
+3. Execute the PDF Summarizer action to process the uploaded file
+4. Present the parsed content and analysis results to the user in a clear, organized format
+Always confirm the file was successfully uploaded before processing.
+
+Create the Action
+
+Reference Action Type: Apex
+Reference Action Category: Invocable Method
+Reference Action: Summarize PDF for Agent
+
+Name: PDF Summarizer
+
+Agent Action Instructions: Use this action to parse and analyze the PDF file uploaded by the user. Execute after confirming the file upload is complete.
+Loading Text: Thinking…
+
+Input
+Instructions: Please upload the PDF file you want to analyze.
+Require input (checked)
+Collect data from user (checked)
+Input rendering: PdfUploadType
+
+Output:
+Instructions: Here are the results from your PDF analysis: {!$Output}
+Show in conversation (checked)
+Output Rendering: Rich Text
+
+NOTES:
+
 Lightning Type - The Lightning Type defines the schema of the custom input used by Agentforce. In this design, the type represents a small object containing the uploaded file metadata, specifically the ContentDocument id that Apex needs to process the PDF. Apex-based Lightning Types derive their schema from Apex classes whose members are annotated with @AuraEnabled.
 
 What it does in this solution:
