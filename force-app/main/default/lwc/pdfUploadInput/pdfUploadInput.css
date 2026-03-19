@@ -1,0 +1,11 @@
+.file-selected {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+    color: #2e844a;
+}
+
+.file-selected-check {
+    font-weight: bold;
+}

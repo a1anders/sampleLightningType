@@ -1,0 +1,5 @@
+{
+  "title": "PDF Upload",
+  "description": "File upload input for PDF summarizer",
+  "lightning:type": "@apexClassType/PdfUploadInputDTO"
+}

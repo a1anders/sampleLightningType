@@ -1,0 +1,34 @@
+<template>
+    <div class="slds-form-element" role="group" aria-label={label}>
+        <template if:true={label}>
+            <label class="slds-form-element__label">
+                <template if:true={required}>
+                    <abbr class="slds-required" aria-label="required">*</abbr>
+                </template>
+                {label}
+            </label>
+        </template>
+
+        <div class="slds-form-element__control">
+            <lightning-file-upload
+                label={uploadLabel}
+                name="pdfUploader"
+                accept={acceptedFormats}
+                record-id={recordId}
+                multiple="false"
+                onuploadfinished={handleUploadFinished}>
+            </lightning-file-upload>
+        </div>
+
+        <div class="slds-form-element__help slds-m-top_x-small">
+            PDF only.
+        </div>
+
+        <template if:true={fileName}>
+            <div class="slds-m-top_small file-selected">
+                <span class="file-selected-check" aria-hidden="true">✓</span>
+                <span>{fileName}</span>
+            </div>
+        </template>
+    </div>
+</template>
